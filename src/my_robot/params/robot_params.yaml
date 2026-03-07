@@ -1,0 +1,14 @@
+motor_controller:
+  ros__parameters:
+    left_motor_pins: [17, 16]
+    right_motor_pins: [15, 14]
+    pwm_enabled: false
+    wheel_diameter: 0.1
+    track_width: 0.2
+    max_speed: 1.0
+
+display:
+  ros__parameters:
+    rotation: 90
+    brightness: 100
+    update_rate: 10

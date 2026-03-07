@@ -1,0 +1,101 @@
+[0.000000] (-) TimerEvent: {}
+[0.000440] (my_robot) JobQueued: {'identifier': 'my_robot', 'dependencies': OrderedDict()}
+[0.001691] (my_robot) JobStarted: {'identifier': 'my_robot'}
+[0.099282] (-) TimerEvent: {}
+[0.199918] (-) TimerEvent: {}
+[0.300680] (-) TimerEvent: {}
+[0.401254] (-) TimerEvent: {}
+[0.501865] (-) TimerEvent: {}
+[0.602438] (-) TimerEvent: {}
+[0.702972] (-) TimerEvent: {}
+[0.803549] (-) TimerEvent: {}
+[0.904212] (-) TimerEvent: {}
+[1.005996] (-) TimerEvent: {}
+[1.106691] (-) TimerEvent: {}
+[1.207242] (-) TimerEvent: {}
+[1.307890] (-) TimerEvent: {}
+[1.408489] (-) TimerEvent: {}
+[1.509074] (-) TimerEvent: {}
+[1.609715] (-) TimerEvent: {}
+[1.710261] (-) TimerEvent: {}
+[1.810845] (-) TimerEvent: {}
+[1.911414] (-) TimerEvent: {}
+[2.011944] (-) TimerEvent: {}
+[2.112488] (-) TimerEvent: {}
+[2.213028] (-) TimerEvent: {}
+[2.313582] (-) TimerEvent: {}
+[2.414103] (-) TimerEvent: {}
+[2.514680] (-) TimerEvent: {}
+[2.615230] (-) TimerEvent: {}
+[2.715804] (-) TimerEvent: {}
+[2.816374] (-) TimerEvent: {}
+[2.916892] (-) TimerEvent: {}
+[3.017432] (-) TimerEvent: {}
+[3.117963] (-) TimerEvent: {}
+[3.218540] (-) TimerEvent: {}
+[3.319084] (-) TimerEvent: {}
+[3.419675] (-) TimerEvent: {}
+[3.520293] (-) TimerEvent: {}
+[3.619762] (my_robot) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/admin/robot_ws/build/my_robot/build', '--no-deps', 'symlink_data'], 'cwd': '/home/admin/robot_ws/build/my_robot', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'admin', 'SSH_CLIENT': '192.168.1.98 54549 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'BROWSER': '/home/admin/.vscode-server/cli/servers/Stable-0870c2a0c7c0564e7631bfed2675573a94ba4455/server/bin/helpers/browser.sh', 'HOME': '/home/admin', 'OLDPWD': '/home/admin/robot_ws/src/my_robot/my_robot', 'TERM_PROGRAM_VERSION': '1.110.0', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-ad8dc608-afa6-4ddf-a67f-009363a46c3c.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/admin/robot_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'admin', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/opt/ros/jazzy/bin:/home/admin/.vscode-server/cli/servers/Stable-0870c2a0c7c0564e7631bfed2675573a94ba4455/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/admin/robot_ws/install/my_robot:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/home/admin/robot_ws/build/my_robot', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.1.98 54549 192.168.1.89 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/admin/robot_ws/build/my_robot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/admin/robot_ws/install/my_robot/lib/python3.12/site-packages:/home/admin/robot_ws/install/my_robot/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}, 'shell': False}
+[3.632718] (-) TimerEvent: {}
+[3.733255] (-) TimerEvent: {}
+[3.833849] (-) TimerEvent: {}
+[3.934447] (-) TimerEvent: {}
+[4.034994] (-) TimerEvent: {}
+[4.135587] (-) TimerEvent: {}
+[4.236141] (-) TimerEvent: {}
+[4.336745] (-) TimerEvent: {}
+[4.437277] (-) TimerEvent: {}
+[4.537879] (-) TimerEvent: {}
+[4.638457] (-) TimerEvent: {}
+[4.738997] (-) TimerEvent: {}
+[4.839588] (-) TimerEvent: {}
+[4.940121] (-) TimerEvent: {}
+[5.040727] (-) TimerEvent: {}
+[5.084402] (my_robot) StdoutLine: {'line': b'running develop\n'}
+[5.140870] (-) TimerEvent: {}
+[5.241420] (-) TimerEvent: {}
+[5.341947] (-) TimerEvent: {}
+[5.442603] (-) TimerEvent: {}
+[5.543171] (-) TimerEvent: {}
+[5.643760] (-) TimerEvent: {}
+[5.744304] (-) TimerEvent: {}
+[5.844889] (-) TimerEvent: {}
+[5.945426] (-) TimerEvent: {}
+[6.045961] (-) TimerEvent: {}
+[6.064075] (my_robot) StdoutLine: {'line': b'running egg_info\n'}
+[6.064767] (my_robot) StdoutLine: {'line': b'creating my_robot.egg-info\n'}
+[6.145057] (my_robot) StdoutLine: {'line': b'writing my_robot.egg-info/PKG-INFO\n'}
+[6.146089] (-) TimerEvent: {}
+[6.146545] (my_robot) StdoutLine: {'line': b'writing dependency_links to my_robot.egg-info/dependency_links.txt\n'}
+[6.147198] (my_robot) StdoutLine: {'line': b'writing entry points to my_robot.egg-info/entry_points.txt\n'}
+[6.147792] (my_robot) StdoutLine: {'line': b'writing requirements to my_robot.egg-info/requires.txt\n'}
+[6.148356] (my_robot) StdoutLine: {'line': b'writing top-level names to my_robot.egg-info/top_level.txt\n'}
+[6.148916] (my_robot) StdoutLine: {'line': b"writing manifest file 'my_robot.egg-info/SOURCES.txt'\n"}
+[6.246250] (-) TimerEvent: {}
+[6.319151] (my_robot) StdoutLine: {'line': b"reading manifest file 'my_robot.egg-info/SOURCES.txt'\n"}
+[6.321866] (my_robot) StdoutLine: {'line': b"writing manifest file 'my_robot.egg-info/SOURCES.txt'\n"}
+[6.346409] (-) TimerEvent: {}
+[6.410767] (my_robot) StdoutLine: {'line': b'running build_ext\n'}
+[6.411459] (my_robot) StdoutLine: {'line': b'Creating /home/admin/robot_ws/install/my_robot/lib/python3.12/site-packages/my-robot.egg-link (link to .)\n'}
+[6.413820] (my_robot) StdoutLine: {'line': b'Installing display_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot\n'}
+[6.414779] (my_robot) StdoutLine: {'line': b'Installing motor_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot\n'}
+[6.415500] (my_robot) StdoutLine: {'line': b'Installing web_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot\n'}
+[6.416564] (my_robot) StdoutLine: {'line': b'\n'}
+[6.417171] (my_robot) StdoutLine: {'line': b'Installed /home/admin/robot_ws/build/my_robot\n'}
+[6.417712] (my_robot) StdoutLine: {'line': b'running symlink_data\n'}
+[6.418141] (my_robot) StdoutLine: {'line': b'creating /home/admin/robot_ws/install/my_robot/share/ament_index\n'}
+[6.418779] (my_robot) StdoutLine: {'line': b'creating /home/admin/robot_ws/install/my_robot/share/ament_index/resource_index\n'}
+[6.419172] (my_robot) StdoutLine: {'line': b'creating /home/admin/robot_ws/install/my_robot/share/ament_index/resource_index/packages\n'}
+[6.419786] (my_robot) StdoutLine: {'line': b'symbolically linking /home/admin/robot_ws/build/my_robot/resource/my_robot -> /home/admin/robot_ws/install/my_robot/share/ament_index/resource_index/packages\n'}
+[6.420231] (my_robot) StdoutLine: {'line': b'symbolically linking /home/admin/robot_ws/build/my_robot/package.xml -> /home/admin/robot_ws/install/my_robot/share/my_robot\n'}
+[6.420884] (my_robot) StdoutLine: {'line': b'creating /home/admin/robot_ws/install/my_robot/share/my_robot/launch\n'}
+[6.421354] (my_robot) StdoutLine: {'line': b'symbolically linking /home/admin/robot_ws/build/my_robot/launch/robot_launch.py -> /home/admin/robot_ws/install/my_robot/share/my_robot/launch\n'}
+[6.422051] (my_robot) StdoutLine: {'line': b'creating /home/admin/robot_ws/install/my_robot/share/my_robot/config\n'}
+[6.422983] (my_robot) StdoutLine: {'line': b'creating /home/admin/robot_ws/install/my_robot/share/my_robot/params\n'}
+[6.423856] (my_robot) StdoutLine: {'line': b'symbolically linking /home/admin/robot_ws/build/my_robot/params/robot_params.yaml -> /home/admin/robot_ws/install/my_robot/share/my_robot/params\n'}
+[6.446648] (-) TimerEvent: {}
+[6.547509] (-) TimerEvent: {}
+[6.580827] (my_robot) CommandEnded: {'returncode': 0}
+[6.622476] (my_robot) JobEnded: {'identifier': 'my_robot', 'rc': 0}
+[6.625278] (-) EventReactorShutdown: {}

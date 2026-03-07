@@ -1,0 +1,70 @@
+<!-- templates/controller.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Robot Control</title>
+    <style>
+        body { font-family: Arial; text-align: center; background: #1a1a1a; color: white; }
+        .btn { 
+            width: 100px; height: 100px; font-size: 24px; margin: 10px;
+            border: none; border-radius: 10px; cursor: pointer;
+        }
+        .forward { background: #4CAF50; }
+        .backward { background: #f44336; }
+        .turn { background: #2196F3; }
+        .stop { background: #ff9800; width: 220px; }
+        .status { font-size: 20px; margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🤖 ROBOT CONTROL</h1>
+    
+    <div class="status" id="status">
+        Left: ■ Right: ■
+    </div>
+    
+    <div>
+        <button class="btn forward" onclick="sendCommand('w')">▲</button>
+    </div>
+    <div>
+        <button class="btn turn" onclick="sendCommand('a')">◀</button>
+        <button class="btn stop" onclick="sendCommand('x')">⏹️ STOP</button>
+        <button class="btn turn" onclick="sendCommand('d')">▶</button>
+    </div>
+    <div>
+        <button class="btn backward" onclick="sendCommand('s')">▼</button>
+    </div>
+
+    <script>
+        function sendCommand(cmd) {
+            fetch('/api/command', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({command: cmd})
+            });
+        }
+
+        function updateStatus() {
+            fetch('/api/status')
+                .then(res => res.json())
+                .then(data => {
+                    const left = data.left === 1 ? '▲' : data.left === -1 ? '▼' : '■';
+                    const right = data.right === 1 ? '▲' : data.right === -1 ? '▼' : '■';
+                    document.getElementById('status').innerHTML = 
+                        `Left: ${left} Right: ${right}`;
+                });
+        }
+
+        setInterval(updateStatus, 100);
+        
+        // Клавиатурное управление
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'w') sendCommand('w');
+            if (e.key === 's') sendCommand('s');
+            if (e.key === 'a') sendCommand('a');
+            if (e.key === 'd') sendCommand('d');
+            if (e.key === 'x') sendCommand('x');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+running develop
+running egg_info
+creating my_robot.egg-info
+writing my_robot.egg-info/PKG-INFO
+writing dependency_links to my_robot.egg-info/dependency_links.txt
+writing entry points to my_robot.egg-info/entry_points.txt
+writing requirements to my_robot.egg-info/requires.txt
+writing top-level names to my_robot.egg-info/top_level.txt
+writing manifest file 'my_robot.egg-info/SOURCES.txt'
+reading manifest file 'my_robot.egg-info/SOURCES.txt'
+writing manifest file 'my_robot.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/admin/robot_ws/install/my_robot/lib/python3.12/site-packages/my-robot.egg-link (link to .)
+Installing display_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot
+Installing motor_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot
+Installing web_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot
+
+Installed /home/admin/robot_ws/build/my_robot
+running symlink_data
+creating /home/admin/robot_ws/install/my_robot/share/ament_index
+creating /home/admin/robot_ws/install/my_robot/share/ament_index/resource_index
+creating /home/admin/robot_ws/install/my_robot/share/ament_index/resource_index/packages
+symbolically linking /home/admin/robot_ws/build/my_robot/resource/my_robot -> /home/admin/robot_ws/install/my_robot/share/ament_index/resource_index/packages
+symbolically linking /home/admin/robot_ws/build/my_robot/package.xml -> /home/admin/robot_ws/install/my_robot/share/my_robot
+creating /home/admin/robot_ws/install/my_robot/share/my_robot/launch
+symbolically linking /home/admin/robot_ws/build/my_robot/launch/robot_launch.py -> /home/admin/robot_ws/install/my_robot/share/my_robot/launch
+creating /home/admin/robot_ws/install/my_robot/share/my_robot/config
+creating /home/admin/robot_ws/install/my_robot/share/my_robot/params
+symbolically linking /home/admin/robot_ws/build/my_robot/params/robot_params.yaml -> /home/admin/robot_ws/install/my_robot/share/my_robot/params

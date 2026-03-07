@@ -1,0 +1,4 @@
+[console_scripts]
+display_node = my_robot.display.display_node:main
+motor_node = my_robot.hardware.motor_node:main
+web_node = my_robot.web.web_node:main
