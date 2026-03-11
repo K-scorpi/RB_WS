@@ -16,6 +16,7 @@ my_robot/display/display_node.py
 my_robot/hardware/__init__.py
 my_robot/hardware/motor_node.py
 my_robot/hardware/robot_movement.py
+my_robot/hardware/servo_node.py
 my_robot/web/__init__.py
 my_robot/web/web_controller.py
 params/robot_params.yaml

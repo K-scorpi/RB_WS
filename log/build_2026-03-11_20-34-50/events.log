@@ -1,0 +1,81 @@
+[0.000000] (-) TimerEvent: {}
+[0.001027] (my_robot) JobQueued: {'identifier': 'my_robot', 'dependencies': OrderedDict()}
+[0.001908] (my_robot) JobStarted: {'identifier': 'my_robot'}
+[0.099204] (-) TimerEvent: {}
+[0.199828] (-) TimerEvent: {}
+[0.300514] (-) TimerEvent: {}
+[0.401199] (-) TimerEvent: {}
+[0.501789] (-) TimerEvent: {}
+[0.602450] (-) TimerEvent: {}
+[0.703025] (-) TimerEvent: {}
+[0.803722] (-) TimerEvent: {}
+[0.904655] (-) TimerEvent: {}
+[1.005401] (-) TimerEvent: {}
+[1.105992] (-) TimerEvent: {}
+[1.206658] (-) TimerEvent: {}
+[1.307299] (-) TimerEvent: {}
+[1.407846] (-) TimerEvent: {}
+[1.508484] (-) TimerEvent: {}
+[1.609063] (-) TimerEvent: {}
+[1.709732] (-) TimerEvent: {}
+[1.810436] (-) TimerEvent: {}
+[1.911143] (-) TimerEvent: {}
+[2.011789] (-) TimerEvent: {}
+[2.112468] (-) TimerEvent: {}
+[2.213168] (-) TimerEvent: {}
+[2.313803] (-) TimerEvent: {}
+[2.414446] (-) TimerEvent: {}
+[2.515145] (-) TimerEvent: {}
+[2.615988] (-) TimerEvent: {}
+[2.716711] (-) TimerEvent: {}
+[2.817307] (-) TimerEvent: {}
+[2.917871] (-) TimerEvent: {}
+[3.018537] (-) TimerEvent: {}
+[3.119153] (-) TimerEvent: {}
+[3.219719] (-) TimerEvent: {}
+[3.332049] (-) TimerEvent: {}
+[3.432749] (-) TimerEvent: {}
+[3.533686] (-) TimerEvent: {}
+[3.539723] (my_robot) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/admin/robot_ws/build/my_robot/build', '--no-deps', 'symlink_data'], 'cwd': '/home/admin/robot_ws/build/my_robot', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'admin', 'SSH_CLIENT': '192.168.1.98 62658 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '2', 'BROWSER': '/home/admin/.vscode-server/cli/servers/Stable-61b3d0ab13be7dda2389f1d3e60a119c7f660cc3/server/bin/helpers/browser.sh', 'HOME': '/home/admin', 'OLDPWD': '/home', 'TERM_PROGRAM_VERSION': '1.110.1', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-2e0fb846-cd47-425d-bf2b-45b6d219304f.sock', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'LOGNAME': 'admin', '_': '/usr/bin/colcon', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'PATH': '/home/admin/.vscode-server/cli/servers/Stable-61b3d0ab13be7dda2389f1d3e60a119c7f660cc3/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'TERM_PROGRAM': 'vscode', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/admin/robot_ws/build/my_robot', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '192.168.1.98 62658 192.168.1.89 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'COLCON': '1', 'PYTHONPATH': '/home/admin/robot_ws/build/my_robot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/admin/robot_ws/install/my_robot/lib/python3.12/site-packages:'}, 'shell': False}
+[3.633846] (-) TimerEvent: {}
+[3.734590] (-) TimerEvent: {}
+[3.835583] (-) TimerEvent: {}
+[3.936199] (-) TimerEvent: {}
+[4.036776] (-) TimerEvent: {}
+[4.137383] (-) TimerEvent: {}
+[4.237953] (-) TimerEvent: {}
+[4.338580] (-) TimerEvent: {}
+[4.439679] (-) TimerEvent: {}
+[4.540257] (-) TimerEvent: {}
+[4.640663] (my_robot) StdoutLine: {'line': b'running develop\n'}
+[4.641458] (-) TimerEvent: {}
+[4.741945] (-) TimerEvent: {}
+[4.842623] (-) TimerEvent: {}
+[4.943444] (-) TimerEvent: {}
+[5.044001] (-) TimerEvent: {}
+[5.144591] (-) TimerEvent: {}
+[5.211140] (my_robot) StdoutLine: {'line': b'running egg_info\n'}
+[5.244735] (-) TimerEvent: {}
+[5.256831] (my_robot) StdoutLine: {'line': b'writing my_robot.egg-info/PKG-INFO\n'}
+[5.257988] (my_robot) StdoutLine: {'line': b'writing dependency_links to my_robot.egg-info/dependency_links.txt\n'}
+[5.259421] (my_robot) StdoutLine: {'line': b'writing entry points to my_robot.egg-info/entry_points.txt\n'}
+[5.260217] (my_robot) StdoutLine: {'line': b'writing requirements to my_robot.egg-info/requires.txt\n'}
+[5.261019] (my_robot) StdoutLine: {'line': b'writing top-level names to my_robot.egg-info/top_level.txt\n'}
+[5.344882] (-) TimerEvent: {}
+[5.357892] (my_robot) StdoutLine: {'line': b"reading manifest file 'my_robot.egg-info/SOURCES.txt'\n"}
+[5.362294] (my_robot) StdoutLine: {'line': b"writing manifest file 'my_robot.egg-info/SOURCES.txt'\n"}
+[5.415142] (my_robot) StdoutLine: {'line': b'running build_ext\n'}
+[5.417269] (my_robot) StdoutLine: {'line': b'Creating /home/admin/robot_ws/install/my_robot/lib/python3.12/site-packages/my-robot.egg-link (link to .)\n'}
+[5.420305] (my_robot) StdoutLine: {'line': b'Installing display_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot\n'}
+[5.421333] (my_robot) StdoutLine: {'line': b'Installing motor_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot\n'}
+[5.422221] (my_robot) StdoutLine: {'line': b'Installing servo_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot\n'}
+[5.422951] (my_robot) StdoutLine: {'line': b'Installing web_node script to /home/admin/robot_ws/install/my_robot/lib/my_robot\n'}
+[5.424205] (my_robot) StdoutLine: {'line': b'\n'}
+[5.424829] (my_robot) StdoutLine: {'line': b'Installed /home/admin/robot_ws/build/my_robot\n'}
+[5.425307] (my_robot) StdoutLine: {'line': b'running symlink_data\n'}
+[5.445185] (-) TimerEvent: {}
+[5.546195] (-) TimerEvent: {}
+[5.569998] (my_robot) CommandEnded: {'returncode': 0}
+[5.643737] (my_robot) JobEnded: {'identifier': 'my_robot', 'rc': 0}
+[5.647014] (-) TimerEvent: {}
+[5.647360] (-) EventReactorShutdown: {}
