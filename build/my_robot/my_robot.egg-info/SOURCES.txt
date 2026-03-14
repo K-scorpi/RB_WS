@@ -27,5 +27,8 @@ my_robot/hardware/robot_movement.py
 my_robot/hardware/servo_node.py
 my_robot/web/__init__.py
 my_robot/web/web_controller.py
+my_robot/web/web_interface_node.py
+my_robot/web/templates/controller.html
+my_robot/web/templates/robot_control.html
 params/robot_params.yaml
 resource/my_robot

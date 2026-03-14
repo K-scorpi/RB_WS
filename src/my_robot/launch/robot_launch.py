@@ -4,7 +4,7 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.substitutions import LaunchConfiguration
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-import os  # ← ЭТО ВАЖНО!
+import os
 from ament_index_python.packages import get_package_share_directory
 
 
@@ -35,6 +35,14 @@ def generate_launch_description():
                 'tilt_min_duty': 2.5,
                 'tilt_max_duty': 8.0,
             }]
+        ),
+        
+        # Веб-интерфейс
+        Node(
+            package='my_robot',
+            executable='web_interface_node',
+            name='web_interface',
+            output='screen',
         ),
         
         IncludeLaunchDescription(
