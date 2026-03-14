@@ -26,6 +26,7 @@ class DisplayNode(Node):
         self.motor_right = 0
         self.servo_pan = 90.0   # поворот (по умолчанию центр)
         self.servo_tilt = 90.0   # наклон (по умолчанию центр)
+        self.camera_status = "OFF"
         
         # Подписка на статус моторов
         self.motor_sub = self.create_subscription(
@@ -39,6 +40,12 @@ class DisplayNode(Node):
             Float32MultiArray,
             'servo/status',
             self.servo_status_callback,
+            10)
+        
+        self.camera_sub = self.create_subscription(
+            String,
+            'camera/status',
+            self.camera_callback,
             10)
         
         # Таймер для обновления дисплея
@@ -86,6 +93,11 @@ class DisplayNode(Node):
         empty = total_bars - filled
         
         return "█" * filled + "░" * empty
+    
+    def camera_callback(self, msg):
+        """Обновление статуса камеры"""
+        self.camera_status = msg.data
+        self.get_logger().debug(f'Camera status: {self.camera_status}')
     
     def show_splash(self):
         """Показать заставку"""
@@ -154,6 +166,11 @@ class DisplayNode(Node):
         self.display.draw.text((self.display.width-80, self.display.height-20), status_text,
                               fill=(0, 255, 0) if status_text == "ACTIVE" else (100, 100, 100), 
                               font=self.display.font_small)
+        
+        camera_text = f"📷 {self.camera_status}"
+        camera_color = (0, 255, 0) if "ACTIVE" in self.camera_status else (100, 100, 100)
+        self.display.draw.text((10, self.display.height-40), camera_text,
+                          fill=camera_color, font=self.display.font_small)
         
         # Отображаем
         self.display.display_image()
