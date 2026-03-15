@@ -1,1 +1,0 @@
-/home/admin/robot_ws/src/robot_camera/launch/camera.launch.py

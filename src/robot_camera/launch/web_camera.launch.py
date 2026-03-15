@@ -7,19 +7,21 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument('width', default_value='640'),
         DeclareLaunchArgument('height', default_value='480'),
-        DeclareLaunchArgument('framerate', default_value='30'),
-        DeclareLaunchArgument('flip', default_value='rotate=180'),
+        DeclareLaunchArgument('fps', default_value='30'),
+        DeclareLaunchArgument('port', default_value='8080'),
+        DeclareLaunchArgument('rotate', default_value='true'),
         
         Node(
             package='robot_camera',
-            executable='robot_camera_node',
-            name='camera_node',
+            executable='web_camera_node',
+            name='web_camera_node',
             output='screen',
             parameters=[{
                 'width': LaunchConfiguration('width'),
                 'height': LaunchConfiguration('height'),
-                'framerate': LaunchConfiguration('framerate'),
-                'flip': LaunchConfiguration('flip'),
+                'fps': LaunchConfiguration('fps'),
+                'port': LaunchConfiguration('port'),
+                'rotate': LaunchConfiguration('rotate'),
             }]
         ),
     ])

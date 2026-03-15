@@ -1,8 +1,7 @@
 Metadata-Version: 2.1
 Name: robot-camera
 Version: 0.0.1
-Summary: ROS2 camera node for robot
+Summary: ROS2 camera node with web interface using rpicam
 Maintainer: admin
-Maintainer-email: admin@local
+Maintainer-email: admin@localhost.com
 License: MIT
-License-File: LICENSE

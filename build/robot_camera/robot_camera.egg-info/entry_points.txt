@@ -1,2 +1,2 @@
 [console_scripts]
-robot_camera_node = robot_camera.robot_camera_node:main
+rpicam_web_node = robot_camera.rpicam_web_node:main
