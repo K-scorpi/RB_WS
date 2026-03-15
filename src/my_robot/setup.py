@@ -28,7 +28,7 @@ setup(
         'console_scripts': [
             'motor_node = my_robot.hardware.motor_node:main',
             'display_node = my_robot.display.display_node:main',
-            'web_interface_node = my_robot.web.web_interface_node:main',
+            'unified_web_node = my_robot.web.unified_web_node:main',
             'servo_node = my_robot.hardware.servo_node:main',
         ],
     },

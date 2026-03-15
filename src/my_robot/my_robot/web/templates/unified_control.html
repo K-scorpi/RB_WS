@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Control Panel</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        
+        .video-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+        }
+        
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .video-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .control-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+        }
+        
+        .status-panel {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .status-label {
+            color: #aaa;
+        }
+        
+        .status-value {
+            font-weight: bold;
+        }
+        
+        .motor-control {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 24px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .control-btn:active {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0.95);
+        }
+        
+        .control-btn.stop {
+            background: rgba(255, 99, 71, 0.8);
+        }
+        
+        .servo-control {
+            margin-top: 20px;
+        }
+        
+        .servo-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .joystick-container {
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            position: relative;
+            margin: 20px auto;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+        
+        .joystick-handle {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+        
+        .joystick-coords {
+            text-align: center;
+            margin-top: 10px;
+            color: #ddd;
+        }
+        
+        .info-panel {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            font-size: 12px;
+            color: #ccc;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-section">
+            <h2>📹 Видео с камеры</h2>
+            <div class="video-container">
+                <img src="http://{{ host }}:{{ video_port }}/video_feed" id="videoFeed">
+            </div>
+            
+            <div class="motor-control">
+                <div></div>
+                <button class="control-btn" 
+                        onmousedown="sendCommand('forward')" 
+                        onmouseup="sendCommand('stop')"
+                        ontouchstart="sendCommand('forward')"
+                        ontouchend="sendCommand('stop')">⬆️</button>
+                <div></div>
+                
+                <button class="control-btn" 
+                        onmousedown="sendCommand('left')" 
+                        onmouseup="sendCommand('stop')"
+                        ontouchstart="sendCommand('left')"
+                        ontouchend="sendCommand('stop')">⬅️</button>
+                        
+                <button class="control-btn stop" 
+                        onclick="sendCommand('stop')">⏹️</button>
+                
+                <button class="control-btn" 
+                        onmousedown="sendCommand('right')" 
+                        onmouseup="sendCommand('stop')"
+                        ontouchstart="sendCommand('right')"
+                        ontouchend="sendCommand('stop')">➡️</button>
+                
+                <div></div>
+                <button class="control-btn" 
+                        onmousedown="sendCommand('backward')" 
+                        onmouseup="sendCommand('stop')"
+                        ontouchstart="sendCommand('backward')"
+                        ontouchend="sendCommand('stop')">⬇️</button>
+                <div></div>
+            </div>
+        </div>
+        
+        <div class="control-panel">
+            <h2>🤖 Статус робота</h2>
+            
+            <div class="status-panel">
+                <div class="status-item">
+                    <span class="status-label">Камера:</span>
+                    <span class="status-value" id="cameraStatus">OFF</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Левый мотор:</span>
+                    <span class="status-value" id="motorLeft">■</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Правый мотор:</span>
+                    <span class="status-value" id="motorRight">■</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Pan (поворот):</span>
+                    <span class="status-value" id="servoPan">90°</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Tilt (наклон):</span>
+                    <span class="status-value" id="servoTilt">90°</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Клиентов:</span>
+                    <span class="status-value" id="clientCount">0</span>
+                </div>
+            </div>
+            
+            <h3>🎥 Управление камерой</h3>
+            <div class="servo-control">
+                <div class="slider-label">
+                    <span>Pan (поворот)</span>
+                    <span id="panValue">90°</span>
+                </div>
+                <input type="range" class="servo-slider" id="panSlider" min="0" max="180" value="90"
+                       oninput="updateServo('pan', this.value)">
+                
+                <div class="slider-label">
+                    <span>Tilt (наклон)</span>
+                    <span id="tiltValue">90°</span>
+                </div>
+                <input type="range" class="servo-slider" id="tiltSlider" min="0" max="180" value="90"
+                       oninput="updateServo('tilt', this.value)">
+            </div>
+            
+            <h3>🕹️ Джойстик</h3>
+            <div class="joystick-container" id="joystick">
+                <div class="joystick-handle" id="joystickHandle"></div>
+            </div>
+            <div class="joystick-coords" id="joystickCoords">X: 0.00, Y: 0.00</div>
+            
+            <div class="info-panel">
+                <div>🎮 WASD - управление</div>
+                <div>🖱️ Пробел - стоп</div>
+                <div>📱 Совместимо с телефонами</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Подключение к серверу
+        const socket = io('http://' + window.location.host);
+        let joystickActive = false;
+        
+        console.log('Скрипт загружен, подключаемся к', window.location.host);
+        
+        socket.on('connect', function() {
+            console.log('✅ Подключено к серверу');
+        });
+        
+        socket.on('disconnect', function() {
+            console.log('❌ Отключено от сервера');
+        });
+        
+        // Функция отправки команд
+        function sendCommand(cmd) {
+            console.log('📤 Отправка команды:', cmd);
+            socket.emit('command', {command: cmd});
+        }
+        
+        // Функция обновления сервоприводов
+        function updateServo(type, value) {
+            console.log('🎯 Обновление серво:', type, value);
+            document.getElementById(type + 'Value').textContent = value + '°';
+            socket.emit('command', {command: 'servo_' + type, value: parseFloat(value)});
+        }
+        
+        // Джойстик
+        const joystick = document.getElementById('joystick');
+        const handle = document.getElementById('joystickHandle');
+        
+        function handleJoystickStart(e) {
+            e.preventDefault();
+            joystickActive = true;
+        }
+        
+        function handleJoystickMove(e) {
+            if (!joystickActive) return;
+            e.preventDefault();
+            
+            const rect = joystick.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            let clientX, clientY;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            
+            let x = (clientX - centerX) / (rect.width / 2);
+            let y = (clientY - centerY) / (rect.height / 2);
+            
+            x = Math.max(-1, Math.min(1, x));
+            y = Math.max(-1, Math.min(1, y));
+            
+            handle.style.transform = `translate(calc(-50% + ${x * 70}px), calc(-50% + ${y * 70}px))`;
+            document.getElementById('joystickCoords').textContent = `X: ${x.toFixed(2)}, Y: ${y.toFixed(2)}`;
+            
+            socket.emit('joystick', {x: x, y: y});
+        }
+        
+        function handleJoystickEnd(e) {
+            e.preventDefault();
+            joystickActive = false;
+            handle.style.transform = 'translate(-50%, -50%)';
+            document.getElementById('joystickCoords').textContent = 'X: 0.00, Y: 0.00';
+            socket.emit('joystick', {x: 0, y: 0});
+        }
+        
+        joystick.addEventListener('mousedown', handleJoystickStart);
+        joystick.addEventListener('touchstart', handleJoystickStart);
+        window.addEventListener('mousemove', handleJoystickMove);
+        window.addEventListener('touchmove', handleJoystickMove);
+        window.addEventListener('mouseup', handleJoystickEnd);
+        window.addEventListener('touchend', handleJoystickEnd);
+        
+        // Обновление статуса
+        function updateStatus() {
+            fetch('/api/state')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('cameraStatus').textContent = data.camera;
+                    
+                    const leftMap = {1: '▲', -1: '▼', 0: '■'};
+                    const rightMap = {1: '▲', -1: '▼', 0: '■'};
+                    document.getElementById('motorLeft').textContent = leftMap[data.motors.left] || '■';
+                    document.getElementById('motorRight').textContent = rightMap[data.motors.right] || '■';
+                    
+                    document.getElementById('servoPan').textContent = data.servos.pan.toFixed(0) + '°';
+                    document.getElementById('servoTilt').textContent = data.servos.tilt.toFixed(0) + '°';
+                    document.getElementById('clientCount').textContent = data.clients;
+                    
+                    // Обновляем слайдеры если они не в фокусе
+                    if (document.activeElement !== document.getElementById('panSlider')) {
+                        document.getElementById('panSlider').value = data.servos.pan;
+                        document.getElementById('panValue').textContent = data.servos.pan.toFixed(0) + '°';
+                    }
+                    if (document.activeElement !== document.getElementById('tiltSlider')) {
+                        document.getElementById('tiltSlider').value = data.servos.tilt;
+                        document.getElementById('tiltValue').textContent = data.servos.tilt.toFixed(0) + '°';
+                    }
+                })
+                .catch(error => console.error('Ошибка получения статуса:', error));
+        }
+        
+        setInterval(updateStatus, 100);
+        
+        // Клавиатурное управление
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                sendCommand('forward');
+            }
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                sendCommand('backward');
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                sendCommand('left');
+            }
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                sendCommand('right');
+            }
+            if (e.key === ' ') {
+                e.preventDefault();
+                sendCommand('stop');
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                e.preventDefault();
+                sendCommand('stop');
+            }
+        });
+    </script>
+</body>
+</html>

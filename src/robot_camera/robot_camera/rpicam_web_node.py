@@ -27,12 +27,14 @@ class RPiCamWebNode(Node):
         self.declare_parameter('fps', 30)
         self.declare_parameter('port', 8080)
         self.declare_parameter('rotate', 180)
+        self.declare_parameter('quality', 70)  # Качество JPEG (1-100)
         
         self.width = self.get_parameter('width').value
         self.height = self.get_parameter('height').value
         self.fps = self.get_parameter('fps').value
         self.port = self.get_parameter('port').value
         self.rotate = self.get_parameter('rotate').value
+        self.quality = self.get_parameter('quality').value
         
         self.get_logger().info('=' * 50)
         self.get_logger().info('📷 RPICAM WEB CAMERA')
@@ -41,6 +43,7 @@ class RPiCamWebNode(Node):
         self.get_logger().info(f'FPS: {self.fps}')
         self.get_logger().info(f'Порт: {self.port}')
         self.get_logger().info(f'Поворот: {self.rotate}°')
+        self.get_logger().info(f'Качество: {self.quality}%')
         
         self.bridge = CvBridge()
         self.image_pub = self.create_publisher(Image, 'camera/image_raw', 10)
@@ -51,6 +54,8 @@ class RPiCamWebNode(Node):
         self.frame_lock = threading.Lock()
         self.frame_count = 0
         self.fps_counter = 0
+        self.client_count = 0
+        self.client_lock = threading.Lock()
         
         # Запускаем rpicam
         self.camera_thread = threading.Thread(target=self.rpicam_loop)
@@ -61,13 +66,15 @@ class RPiCamWebNode(Node):
         self.start_web_server()
         
         self.create_timer(1.0, self.publish_status)
-        self.create_timer(1.0, self.log_fps)
+        self.create_timer(1.0, self.log_stats)
     
-    def log_fps(self):
-        self.get_logger().info(f'📊 FPS: {self.fps_counter}')
+    def log_stats(self):
+        """Логирование статистики"""
+        #self.get_logger().info(f'📊 FPS: {self.fps_counter} | Клиентов: {self.client_count}')
         self.fps_counter = 0
     
     def rpicam_loop(self):
+        """Захват видео через rpicam-vid"""
         pipe_path = '/tmp/rpicam_pipe'
         if os.path.exists(pipe_path):
             os.unlink(pipe_path)
@@ -126,24 +133,21 @@ class RPiCamWebNode(Node):
                             )
                             bgr = cv2.cvtColor(yuv, cv2.COLOR_YUV2BGR_I420)
                             
-                            # Конвертируем в JPEG
-                            _, jpeg = cv2.imencode('.jpg', bgr, [cv2.IMWRITE_JPEG_QUALITY, 70])
+                            # Конвертируем в JPEG с заданным качеством
+                            _, jpeg = cv2.imencode('.jpg', bgr, [cv2.IMWRITE_JPEG_QUALITY, self.quality])
                             jpeg_bytes = jpeg.tobytes()
                             
                             # Обновляем кадр для веба
                             with self.frame_lock:
                                 self.last_jpeg = jpeg_bytes
                             
-                            # Публикуем в ROS (каждый 3-й кадр)
-                            if self.frame_count % 3 == 0:
+                            # Публикуем в ROS (каждый 5-й кадр для экономии)
+                            if self.frame_count % 5 == 0:
                                 ros_image = self.bridge.cv2_to_imgmsg(bgr, 'bgr8')
                                 ros_image.header.stamp = self.get_clock().now().to_msg()
                                 ros_image.header.frame_id = 'camera_link'
                                 self.image_pub.publish(ros_image)
                             
-                            if self.frame_count % 30 == 0:
-                                self.get_logger().info(f'📸 Получено кадров: {self.frame_count}')
-                                
                         except Exception as e:
                             self.get_logger().error(f'❌ Ошибка конвертации: {e}')
                     else:
@@ -160,7 +164,13 @@ class RPiCamWebNode(Node):
             self.get_logger().info('📴 Поток камеры завершен')
     
     def start_web_server(self):
+        """Запуск оптимизированного веб-сервера"""
+        
         class VideoHandler(BaseHTTPRequestHandler):
+            def log_message(self, format, *args):
+                # Отключаем логирование запросов (очень много)
+                pass
+            
             def do_GET(self):
                 if self.path == '/':
                     self.send_response(200)
@@ -172,12 +182,36 @@ class RPiCamWebNode(Node):
                     <html>
                     <head>
                         <title>Robot Camera</title>
+                        <meta charset="UTF-8">
                         <style>
-                            body {{ background: #1a1a1a; color: white; font-family: Arial; text-align: center; }}
-                            .container {{ max-width: 800px; margin: 0 auto; padding: 20px; }}
-                            .video-container {{ background: #000; border-radius: 10px; overflow: hidden; }}
-                            img {{ width: 100%; height: auto; }}
-                            .status {{ margin: 10px 0; color: #4CAF50; }}
+                            body {{ 
+                                background: #1a1a1a; 
+                                color: white; 
+                                font-family: Arial;
+                                margin: 0;
+                                padding: 20px;
+                                text-align: center;
+                            }}
+                            .container {{
+                                max-width: 800px;
+                                margin: 0 auto;
+                            }}
+                            h1 {{ color: #4CAF50; }}
+                            .video-container {{
+                                background: #000;
+                                border-radius: 10px;
+                                overflow: hidden;
+                                border: 3px solid #333;
+                            }}
+                            img {{
+                                width: 100%;
+                                height: auto;
+                                display: block;
+                            }}
+                            .status {{
+                                margin-top: 10px;
+                                color: #888;
+                            }}
                         </style>
                     </head>
                     <body>
@@ -187,38 +221,49 @@ class RPiCamWebNode(Node):
                                 <img src="/video_feed" id="videoFeed">
                             </div>
                             <div class="status">
-                                Разрешение: {self.server.width}x{self.server.height} | FPS: {self.server.fps}
+                                {self.server.width}x{self.server.height} | {self.server.fps} fps
                             </div>
                         </div>
-                        <script>
-                            const img = document.getElementById('videoFeed');
-                            setInterval(() => {{
-                                img.src = '/video_feed?t=' + Date.now();
-                            }}, 50);
-                        </script>
                     </body>
                     </html>
                     '''
                     self.wfile.write(html.encode())
                     
                 elif self.path.startswith('/video_feed'):
+                    # Подключаем нового клиента
+                    with self.server.client_lock:
+                        self.server.client_count += 1
+                    
                     self.send_response(200)
                     self.send_header('Content-type', 'multipart/x-mixed-replace; boundary=frame')
                     self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
                     self.send_header('Pragma', 'no-cache')
                     self.send_header('Expires', '0')
+                    self.send_header('Connection', 'close')
                     self.end_headers()
                     
-                    while True:
-                        if self.server.last_jpeg:
-                            try:
-                                self.wfile.write(b'--frame\r\n')
-                                self.wfile.write(b'Content-Type: image/jpeg\r\n\r\n')
-                                self.wfile.write(self.server.last_jpeg)
-                                self.wfile.write(b'\r\n')
-                            except:
-                                break
-                        time.sleep(0.03)
+                    frame_count = 0
+                    try:
+                        while True:
+                            # Отправляем кадры с правильной скоростью
+                            with self.server.frame_lock:
+                                if self.server.last_jpeg:
+                                    self.wfile.write(b'--frame\r\n')
+                                    self.wfile.write(b'Content-Type: image/jpeg\r\n\r\n')
+                                    self.wfile.write(self.server.last_jpeg)
+                                    self.wfile.write(b'\r\n')
+                            
+                            frame_count += 1
+                            # Спим в соответствии с FPS
+                            time.sleep(1.0 / self.server.fps)
+                            
+                    except (BrokenPipeError, ConnectionResetError):
+                        # Клиент отключился
+                        pass
+                    finally:
+                        with self.server.client_lock:
+                            self.server.client_count -= 1
+                            
                 else:
                     self.send_response(404)
                     self.end_headers()
@@ -226,20 +271,22 @@ class RPiCamWebNode(Node):
         class ThreadedHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
             allow_reuse_address = True
         
-        # Создаем сервер и сохраняем в него данные
+        # Создаем сервер с общими данными
         self.server = ThreadedHTTPServer(('0.0.0.0', self.port), VideoHandler)
         self.server.last_jpeg = None
         self.server.width = self.width
         self.server.height = self.height
         self.server.fps = self.fps
         self.server.frame_lock = self.frame_lock
+        self.server.client_lock = self.client_lock
+        self.server.client_count = 0
         
-        # Функция обновления last_jpeg в сервере
+        # Поток для обновления JPEG в сервере
         def update_server_jpeg():
             while self.running:
                 with self.frame_lock:
                     self.server.last_jpeg = self.last_jpeg
-                time.sleep(0.01)
+                time.sleep(0.01)  # 100 Hz обновление
         
         self.updater_thread = threading.Thread(target=update_server_jpeg)
         self.updater_thread.daemon = True
@@ -249,6 +296,7 @@ class RPiCamWebNode(Node):
         def run_server():
             self.get_logger().info(f'🌐 Веб-сервер на http://0.0.0.0:{self.port}')
             try:
+                # Получаем IP адрес
                 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                 s.connect(('8.8.8.8', 80))
                 ip = s.getsockname()[0]
@@ -263,9 +311,10 @@ class RPiCamWebNode(Node):
         self.web_thread.start()
     
     def publish_status(self):
+        """Публикация статуса"""
         msg = String()
         if self.last_jpeg is not None:
-            msg.data = f"ACTIVE {self.width}x{self.height}"
+            msg.data = f"ACTIVE {self.width}x{self.height} clients:{self.client_count}"
         else:
             msg.data = "STARTING"
         self.status_pub.publish(msg)
